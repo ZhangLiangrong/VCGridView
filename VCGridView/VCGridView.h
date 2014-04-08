@@ -34,6 +34,10 @@
 @property (nonatomic, weak)   id <VCGridViewDataSource> dataSource;   //Datasource changes will call reloadData automatically.
 @property (nonatomic, weak)   id <VCGridViewDelegate>   delegate;
 @property (nonatomic, readwrite, strong) UIView *backgroundView;
+@property (nonatomic,assign) CGPoint gridOffset;
+
+@property(nonatomic, assign) BOOL alwaysVerticalScrollEnabled;   //default is YES
+@property(nonatomic, assign) BOOL alwaysHorizontalScrollEnabled;  //defulat is NO;
 
 
 - (void)reloadData;           //reloadData will remove all visible cells and rebuild.
