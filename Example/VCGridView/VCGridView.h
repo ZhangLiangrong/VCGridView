@@ -34,6 +34,10 @@
 @property (nonatomic, weak)   id <VCGridViewDataSource> dataSource;   //Datasource changes will call reloadData automatically.
 @property (nonatomic, weak)   id <VCGridViewDelegate>   delegate;
 @property (nonatomic, readwrite, strong) UIView *backgroundView;
+@property (nonatomic,assign) CGPoint gridOffset;
+
+@property(nonatomic, assign) BOOL alwaysVerticalScrollEnabled;   //default is YES
+@property(nonatomic, assign) BOOL alwaysHorizontalScrollEnabled;  //defulat is NO;
 
 
 - (void)reloadData;           //reloadData will remove all visible cells and rebuild.
@@ -54,8 +58,8 @@
 - (void)selectRowAtIndexPath:(VCGridIndexPath *)indexPath animated:(BOOL)animated;
 - (void)deselectRowAtIndexPath:(VCGridIndexPath *)indexPath animated:(BOOL)animated;
 
-//@property(nonatomic,strong) UIView *gridHeaderView;                            // accessory view for above row content. default is nil.
-//@property(nonatomic,strong) UIView *gridFooterView;                            // accessory view below content. default is nil.
+@property(nonatomic,strong) UIView *gridHeaderView;                            // accessory view for above row content. default is nil.
+@property(nonatomic,strong) UIView *gridFooterView;                            // accessory view below content. default is nil.
 
 - (VCGridCell*)dequeueReusableCellWithIdentifier:(NSString *)identifier;  // Used by the delegate to acquire an already allocated cell, in lieu of allocating a new one.
 

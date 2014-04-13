@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C9DA23718FA892C00F56E80 /* VCGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9DA23418FA892C00F56E80 /* VCGridCell.m */; };
+		1C9DA23818FA892C00F56E80 /* VCGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C9DA23618FA892C00F56E80 /* VCGridView.m */; };
 		1CA673E218F0592E00159565 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA673E118F0592E00159565 /* Foundation.framework */; };
 		1CA673E418F0592E00159565 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA673E318F0592E00159565 /* CoreGraphics.framework */; };
 		1CA673E618F0592E00159565 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA673E518F0592E00159565 /* UIKit.framework */; };
@@ -19,8 +21,6 @@
 		1CA673FD18F0592E00159565 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA673E518F0592E00159565 /* UIKit.framework */; };
 		1CA6740518F0592E00159565 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1CA6740318F0592E00159565 /* InfoPlist.strings */; };
 		1CA6740718F0592E00159565 /* ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA6740618F0592E00159565 /* ExampleTests.m */; };
-		1CA6741518F059E200159565 /* VCGridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA6741218F059E200159565 /* VCGridCell.m */; };
-		1CA6741618F059E200159565 /* VCGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1CA6741418F059E200159565 /* VCGridView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +34,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C9DA23318FA892C00F56E80 /* VCGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCGridCell.h; sourceTree = "<group>"; };
+		1C9DA23418FA892C00F56E80 /* VCGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCGridCell.m; sourceTree = "<group>"; };
+		1C9DA23518FA892C00F56E80 /* VCGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCGridView.h; sourceTree = "<group>"; };
+		1C9DA23618FA892C00F56E80 /* VCGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCGridView.m; sourceTree = "<group>"; };
 		1CA673DE18F0592E00159565 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CA673E118F0592E00159565 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1CA673E318F0592E00159565 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -50,10 +54,6 @@
 		1CA6740218F0592E00159565 /* ExampleTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ExampleTests-Info.plist"; sourceTree = "<group>"; };
 		1CA6740418F0592E00159565 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1CA6740618F0592E00159565 /* ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExampleTests.m; sourceTree = "<group>"; };
-		1CA6741118F059E200159565 /* VCGridCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCGridCell.h; sourceTree = "<group>"; };
-		1CA6741218F059E200159565 /* VCGridCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCGridCell.m; sourceTree = "<group>"; };
-		1CA6741318F059E200159565 /* VCGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCGridView.h; sourceTree = "<group>"; };
-		1CA6741418F059E200159565 /* VCGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCGridView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,10 +80,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C9DA23218FA892C00F56E80 /* VCGridView */ = {
+			isa = PBXGroup;
+			children = (
+				1C9DA23318FA892C00F56E80 /* VCGridCell.h */,
+				1C9DA23418FA892C00F56E80 /* VCGridCell.m */,
+				1C9DA23518FA892C00F56E80 /* VCGridView.h */,
+				1C9DA23618FA892C00F56E80 /* VCGridView.m */,
+			);
+			path = VCGridView;
+			sourceTree = "<group>";
+		};
 		1CA673D518F0592E00159565 = {
 			isa = PBXGroup;
 			children = (
-				1CA6741018F059E200159565 /* VCGridView */,
+				1C9DA23218FA892C00F56E80 /* VCGridView */,
 				1CA673E718F0592E00159565 /* Example */,
 				1CA6740018F0592E00159565 /* ExampleTests */,
 				1CA673E018F0592E00159565 /* Frameworks */,
@@ -149,17 +160,6 @@
 				1CA6740318F0592E00159565 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		1CA6741018F059E200159565 /* VCGridView */ = {
-			isa = PBXGroup;
-			children = (
-				1CA6741118F059E200159565 /* VCGridCell.h */,
-				1CA6741218F059E200159565 /* VCGridCell.m */,
-				1CA6741318F059E200159565 /* VCGridView.h */,
-				1CA6741418F059E200159565 /* VCGridView.m */,
-			);
-			path = VCGridView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,8 +258,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CA6741518F059E200159565 /* VCGridCell.m in Sources */,
-				1CA6741618F059E200159565 /* VCGridView.m in Sources */,
+				1C9DA23718FA892C00F56E80 /* VCGridCell.m in Sources */,
+				1C9DA23818FA892C00F56E80 /* VCGridView.m in Sources */,
 				1CA673EE18F0592E00159565 /* main.m in Sources */,
 				1CA673F218F0592E00159565 /* VCAppDelegate.m in Sources */,
 			);

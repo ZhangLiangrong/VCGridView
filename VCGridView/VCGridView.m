@@ -169,12 +169,27 @@
 {
     if(!CGRectIsEmpty(rect)){
         for(VCGridCell *cell in self.onuseCellSet){
-            if(CGRectEqualToRect(rect,cell.frame)){
+            if([self isRectEqual:cell.frame compareRect:rect]){
                 return cell;
             }
         }
     }
     return nil;
+}
+
+//just compare Two decimal places
+-(BOOL)isRectEqual:(CGRect)rect1 compareRect:(CGRect)rect2
+{
+    return [self isFloatEqual:rect1.origin.x compare:rect2.origin.x] && [self isFloatEqual:rect1.origin.y compare:rect2.origin.y] && [self isFloatEqual:rect1.size.width compare:rect2.size.width] && [self isFloatEqual:rect1.size.height compare:rect2.size.height];
+}
+
+-(BOOL)isFloatEqual:(CGFloat)x1 compare:(CGFloat)x2
+{
+    float dir = fabsf(x1 - x2);
+    if(dir <= 0.01f){
+        return YES;
+    }
+    return NO;
 }
 
 -(void)fireOnUseCellNotInArray:(NSArray*)useArray
@@ -266,12 +281,12 @@
     }
     CGSize contentSize = [self loadGridInfoFromDatasource];
     if(self.alwaysVerticalScrollEnabled){
-        if(contentSize.height <= self.frame.size.height){
+        if(contentSize.height <= self.frame.size.height + self.gridOffset.y){
             contentSize.height = self.frame.size.height + self.gridOffset.y + 1;
         }
     }
     if(self.alwaysHorizontalScrollEnabled){
-        if(contentSize.width <= self.frame.size.width){
+        if(contentSize.width <= self.frame.size.width + self.gridOffset.x){
             contentSize.width = self.frame.size.width + self.gridOffset.x + 1;
         }
     }
@@ -408,6 +423,21 @@
         }
     }
     return nil;
+}
+
+-(void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+}
+
+-(void)setContentSize:(CGSize)contentSize
+{
+    [super setContentSize:contentSize];
+}
+
+-(void)setContentOffset:(CGPoint)contentOffset
+{
+    [super setContentOffset:contentOffset];
 }
 
 @end

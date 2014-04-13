@@ -56,6 +56,7 @@
         // Initialization code
         self.reuseCellSet = [NSMutableSet set];
         self.onuseCellSet = [NSMutableSet set];
+        self.alwaysVerticalScrollEnabled = YES;
     }
     return self;
 }
@@ -64,6 +65,14 @@
 {
     if(_dataSource != dataSource){
         _dataSource = dataSource;
+        [self reloadData];
+    }
+}
+
+-(void)setGridOffset:(CGPoint)gridOffset
+{
+    if(!CGPointEqualToPoint(_gridOffset, gridOffset)){
+        _gridOffset = gridOffset;
         [self reloadData];
     }
 }
@@ -79,7 +88,7 @@
         row = [self.dataSource numberOfRowInGridView:self];
     }
     self.rowInfoArray = [NSMutableArray arrayWithCapacity:row];
-    CGFloat posY = 0;
+    CGFloat posY = self.gridOffset.y;
     for(NSInteger i = 0; i < row && row > 0; i++){
         GridRowInfo *rowInfo = [[GridRowInfo alloc] init];
         rowInfo.rowIndex = i;
@@ -91,7 +100,7 @@
         if([self.dataSource respondsToSelector:@selector(numberOfColumnInRow:inGridView:)]){
             columnCount = [self.dataSource numberOfColumnInRow:i inGridView:self];
         }
-        CGFloat posX = 0;
+        CGFloat posX = self.gridOffset.x;
         for(NSInteger j = 0 ; j < columnCount && columnCount > 0; j++){
             CGFloat width =  kVCGridCellDefaultWidth;
             if([self.dataSource respondsToSelector:@selector(widthForColumn:inRow:inGridView:)]){
@@ -112,8 +121,6 @@
         }
     }
     contentSize.height = posY;
-    [self.onuseCellSet removeAllObjects];
-    [self.reuseCellSet removeAllObjects];
     return contentSize;
 }
 
@@ -147,7 +154,7 @@
                 cell = [self.dataSource cellForIndexPath:[VCGridIndexPath indexPathForRow:rowInfo.rowIndex column:cellInfo.columnIndex] inGridView:self];
                 NSAssert([cell isKindOfClass:[VCGridCell class]], @"Not a support grid cell!");
                 cell.frame = cellRect;
-                [self addSubview:cell];
+                [self insertSubview:cell atIndex:0];
             }
             [useArray addObject:cell];
         }
@@ -155,19 +162,34 @@
     [self fireOnUseCellNotInArray:useArray];
     [self.onuseCellSet removeAllObjects];
     [self.onuseCellSet addObjectsFromArray:useArray];
-    
+
 }
 
 -(VCGridCell*)onUseCellForRect:(CGRect)rect
 {
     if(!CGRectIsEmpty(rect)){
         for(VCGridCell *cell in self.onuseCellSet){
-            if(CGRectEqualToRect(rect,cell.frame)){
+            if([self isRectEqual:cell.frame compareRect:rect]){
                 return cell;
             }
         }
     }
     return nil;
+}
+
+//just compare Two decimal places
+-(BOOL)isRectEqual:(CGRect)rect1 compareRect:(CGRect)rect2
+{
+    return [self isFloatEqual:rect1.origin.x compare:rect2.origin.x] && [self isFloatEqual:rect1.origin.y compare:rect2.origin.y] && [self isFloatEqual:rect1.size.width compare:rect2.size.width] && [self isFloatEqual:rect1.size.height compare:rect2.size.height];
+}
+
+-(BOOL)isFloatEqual:(CGFloat)x1 compare:(CGFloat)x2
+{
+    float dir = fabsf(x1 - x2);
+    if(dir <= 0.01f){
+        return YES;
+    }
+    return NO;
 }
 
 -(void)fireOnUseCellNotInArray:(NSArray*)useArray
@@ -177,6 +199,19 @@
             [self.reuseCellSet addObject:cell];
             [cell removeFromSuperview];
         }
+    }
+}
+
+-(void)removeAllGridCell
+{
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.subviews.count];
+    for(UIView *view in self.subviews){
+        if([view isKindOfClass:[VCGridCell class]]){
+            [array addObject:view];
+        }
+    }
+    for(UIView *view in array){
+        [view removeFromSuperview];
     }
 }
 
@@ -239,7 +274,22 @@
 
 - (void)reloadData
 {
+    [self removeAllGridCell];
+    if([self.onuseCellSet count] > 0){
+        [self.reuseCellSet addObjectsFromArray:[self.onuseCellSet allObjects]];
+        [self.onuseCellSet removeAllObjects];
+    }
     CGSize contentSize = [self loadGridInfoFromDatasource];
+    if(self.alwaysVerticalScrollEnabled){
+        if(contentSize.height <= self.frame.size.height + self.gridOffset.y){
+            contentSize.height = self.frame.size.height + self.gridOffset.y + 1;
+        }
+    }
+    if(self.alwaysHorizontalScrollEnabled){
+        if(contentSize.width <= self.frame.size.width + self.gridOffset.x){
+            contentSize.width = self.frame.size.width + self.gridOffset.x + 1;
+        }
+    }
     [self setContentSize:contentSize];
     [self setNeedsLayout];
 }
@@ -375,7 +425,20 @@
     return nil;
 }
 
+-(void)setFrame:(CGRect)frame
+{
+    [super setFrame:frame];
+}
 
+-(void)setContentSize:(CGSize)contentSize
+{
+    [super setContentSize:contentSize];
+}
+
+-(void)setContentOffset:(CGPoint)contentOffset
+{
+    [super setContentOffset:contentOffset];
+}
 
 @end
 
